@@ -14,7 +14,11 @@ public class RobotHardware {
     public DcMotorEx frontRight = null;
     public DcMotorEx rearRight = null;
 
-    public DcMotorEx[] motors;
+    public DcMotorEx shooterLeft = null;
+    public DcMotorEx shooterRight = null;
+    public DcMotorEx shooterMot = null;
+    public DcMotorEx motClimber = null;
+    public Servo shooterSer = null;
 
     public RobotHardware() {}
 
@@ -22,7 +26,7 @@ public class RobotHardware {
         Assert.assertNotNull(hardwareMap);
         initializeDriveMotors(hardwareMap);
         initializeIntakeMotors(hardwareMap);
-        initializeOutTakeMotors(hardwareMap);
+        initializeClimbMotors(hardwareMap);
         initializeServos(hardwareMap);
     }
 
@@ -35,7 +39,7 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 
 
     //this is the list of the motors you will use for the drivetrain
-    motors = new DcMotorEx[]{frontLeft, frontRight, rearLeft, rearRight}; 
+    motors = new DcMotorEx[]{frontLeft, frontRight, rearLeft, rearRight, shooterLeft, shooterRight, shooterMot, motClimber};
 
     //setting the directions specific to the mecanum drive train. If you have a different drive train come ask.
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -43,6 +47,10 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
     frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
     rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
+    shooterLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+    shooterRight.setDirection(DcMotorSimple.Direction.REVERSE);
+    shooterMot.setDirection(DcMotorSimple.Direction.FORWARD);
+    motClimber.setDirection(DcMotorSimple.Direction.FORWARD);
 
     for(DcMotorEx motor : motors ){
         motor.setPower(0.0);
@@ -52,14 +60,18 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 }
 
 public void initializeIntakeMotors(HardwareMap hardwareMap){
-    //this will be where your intake code goes eventually
+    shooterLeft = hardwareMap.get(DcMotorEx.class, RobotIDS.LEFT_SHOOTER_MOTOR);
+    shooterRight = hardwareMap.get(DcMotorEx.class, RobotIDS.RIGHT_SHOOTER_MOTOR);
+    shooterMot = hardwareMap.get(DcMotorEx.class, RobotIDS.SHOOTER_HEX_MOTOR);
+
 }
 
-public void initializeOutTakeMotors(HardwareMap hardwareMap){
-        //this is where your shooter code will go eventually
+public void initializeClimbMotors(HardwareMap hardwareMap){
+    motClimber = hardwareMap.get(DcMotorEx.class, RobotIDS.CLIMBER_HEX_MOTOR);
 }
 
 public void initializeServos(HardwareMap hardwareMap){
     //this is where all of your servos will go eventually
+    shooterSer = hardwareMap.get(Servo.class, RobotIDS.BACK_SHOOTER_SERVO);
 }
 }

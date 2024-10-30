@@ -19,6 +19,7 @@ public class RobotCode extends OpMode {
     public static final double SLOW_MODE = .45;
     double currentMode;
     ElapsedTime buttonTime = null;
+    ElapsedTime nuttonTime = null;
 
     public void init(){
         hardware = new RobotHardware();
@@ -115,15 +116,47 @@ public class RobotCode extends OpMode {
     }
 
     public void intake(){
-        //intake will go here
+        if (gamepad2.circle)
+        {
+            hardware.shooterLeft.setPower(1.0);
+            hardware.shooterRight.setPower(1.0);
+        }
+        else
+        {
+            hardware.shooterLeft.setPower(0.0);
+            hardware.shooterRight.setPower(0.0);
+        }
     }
 
-    public void launch(){
-        //the things you need to do for launch will go here
 
+
+    public void launch(){
+        if (gamepad2.square)
+        {
+            hardware.shooterLeft.setPower(-1.0);
+            hardware.shooterRight.setPower(-1.0);
+        }
+        else
+        {
+            hardware.shooterLeft.setPower(-0.0);
+            hardware.shooterRight.setPower(-0.0);
+        }
     }
 
     public void lift(){
-       //climber code will go here
+        if (gamepad2.triangle)
+        {
+            hardware.motClimber.setPower(1.0);
+        }
+        else {
+            hardware.motClimber.setPower(0.0);
+        }
+
+        if (gamepad2.cross)
+        {
+            hardware.motClimber.setPower(-1.0);
+        }
+        else {
+            hardware.motClimber.setPower(0.0);
+        }
     }
-}
