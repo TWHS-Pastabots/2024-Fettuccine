@@ -12,16 +12,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class RobotCode extends OpMode {
 
 
-
     RobotHardware hardware;
-   //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
+    //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
     public static final double SLOW_MODE = .45;
     double currentMode;
     ElapsedTime buttonTime = null;
-    ElapsedTime nuttonTime = null;
 
-    public void init(){
+    public void init() {
         hardware = new RobotHardware();
         hardware.init(hardwareMap);
         currentMode = FAST_MODE;
@@ -31,19 +29,20 @@ public class RobotCode extends OpMode {
         telemetry.update();
     }
 
-    public void start(){
+    public void start() {
         telemetry.addData("Status: ", "Started");
         telemetry.update();
     }
-    public void loop(){
+
+    public void loop() {
         drive();
         intake();
         launch();
         lift();
         telemetry();
     }
-    public void telemetry()
-    {
+
+    public void telemetry() {
         //this is the class you should put stuff in if you want to print to the phone.
 
     }
@@ -59,7 +58,7 @@ public class RobotCode extends OpMode {
         double rightRearPower = y + x - z;
 
         if (Math.abs(leftFrontPower) > 1 || Math.abs(leftRearPower) > 1 ||
-                Math.abs(rightFrontPower) > 1 || Math.abs(rightRearPower) > 1 ){
+                Math.abs(rightFrontPower) > 1 || Math.abs(rightRearPower) > 1) {
             // Find the largest power
             double max;
             max = Math.max(Math.abs(leftFrontPower), Math.abs(leftRearPower));
@@ -73,38 +72,32 @@ public class RobotCode extends OpMode {
             rightRearPower /= max;
         }
 
-        if(gamepad1.dpad_left){
+        if (gamepad1.dpad_left) {
             leftFrontPower = -1;
             rightRearPower = -1;
             leftRearPower = 1;
             rightFrontPower = 1;
-        }
-        else if(gamepad1.dpad_right){
+        } else if (gamepad1.dpad_right) {
             leftFrontPower = 1;
             rightRearPower = 1;
             leftRearPower = -1;
             rightFrontPower = -1;
-        }
-        else if (gamepad1.dpad_up)
-        {
-           leftFrontPower = 1;
-           rightRearPower = 1;
-           leftRearPower = 1;
-           rightFrontPower = 1;
-        }
-        else if(gamepad1.dpad_down)
-        {
+        } else if (gamepad1.dpad_up) {
+            leftFrontPower = 1;
+            rightRearPower = 1;
+            leftRearPower = 1;
+            rightFrontPower = 1;
+        } else if (gamepad1.dpad_down) {
             leftFrontPower = -1;
             leftRearPower = -1;
             rightRearPower = -1;
             rightFrontPower = -1;
         }
 
-        if(gamepad1.left_bumper && currentMode == FAST_MODE && buttonTime.time() >= 500) {
+        if (gamepad1.left_bumper && currentMode == FAST_MODE && buttonTime.time() >= 500) {
             currentMode = SLOW_MODE;
             buttonTime.reset();
-        }
-        else if(gamepad1.left_bumper && currentMode == SLOW_MODE && buttonTime.time() >= 500) {
+        } else if (gamepad1.left_bumper && currentMode == SLOW_MODE && buttonTime.time() >= 500) {
             currentMode = FAST_MODE;
             buttonTime.reset();
         }
@@ -115,48 +108,48 @@ public class RobotCode extends OpMode {
         hardware.rearRight.setPower(rightRearPower * currentMode);
     }
 
-    public void intake(){
-        if (gamepad2.circle)
-        {
+    public void intake() {
+        if (gamepad2.right_trigger > 0) {
             hardware.shooterLeft.setPower(1.0);
-            hardware.shooterRight.setPower(1.0);
-        }
-        else
-        {
+            telemetry.addData("Intake Wheels on: ", "turning");
+        } else {
             hardware.shooterLeft.setPower(0.0);
+        }
+        if (gamepad2.right_trigger > 0) {
+            hardware.shooterRight.setPower(-1.0);
+            telemetry.addData("Intake Wheels on: ", "turning");
+        } else {
             hardware.shooterRight.setPower(0.0);
         }
     }
 
 
-
-    public void launch(){
-        if (gamepad2.square)
-        {
+    public void launch() {
+        if (gamepad2.left_trigger > 0) {
             hardware.shooterLeft.setPower(-1.0);
-            hardware.shooterRight.setPower(-1.0);
+            telemetry.addData("right shooter Wheels on: ", "turning");
+        } else {
+            hardware.shooterLeft.setPower(0.0);
         }
-        else
-        {
-            hardware.shooterLeft.setPower(-0.0);
-            hardware.shooterRight.setPower(-0.0);
+        if (gamepad2.left_trigger > 0) {
+            hardware.shooterRight.setPower(1.0);
+            telemetry.addData("right shooter Wheels on: ", "turning");
+        } else {
+            hardware.shooterRight.setPower(0.0);
+        }
+        if (gamepad2.square) {
+            hardware.shooterMot .setPower(1.0);
+            telemetry.addData("right shooter climb on: ", "turning");
+                            hardware.shooterRight.setPower(0.0);
+        }
+        if (gamepad2.triangle) {
+            hardware.shooterSer.setPosition(-1.0);
         }
     }
 
-    public void lift(){
-        if (gamepad2.triangle)
-        {
-            hardware.motClimber.setPower(1.0);
-        }
-        else {
-            hardware.motClimber.setPower(0.0);
-        }
-
-        if (gamepad2.cross)
-        {
+    public void lift() {
+        if (gamepad2.circle) {
             hardware.motClimber.setPower(-1.0);
         }
-        else {
-            hardware.motClimber.setPower(0.0);
-        }
     }
+}
