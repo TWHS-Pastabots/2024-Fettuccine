@@ -29,7 +29,7 @@ public class RobotHardware {
         initializeClimbMotors(hardwareMap);
         initializeServos(hardwareMap);
     }
-
+public DcMotorEx[] motors;
 public void initializeDriveMotors(HardwareMap hardwareMap){
         //getting the motor ids from the hardwaremap you will create
     frontLeft = hardwareMap.get(DcMotorEx.class, RobotIDS.LEFT_FRONT_MOTOR);
@@ -39,18 +39,13 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 
 
     //this is the list of the motors you will use for the drivetrain
-    motors = new DcMotorEx[]{frontLeft, frontRight, rearLeft, rearRight, shooterLeft, shooterRight, shooterMot, motClimber};
+    motors = new DcMotorEx[]{frontLeft, frontRight, rearLeft, rearRight};
 
     //setting the directions specific to the mecanum drive train. If you have a different drive train come ask.
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
     rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
-
-    shooterLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-    shooterRight.setDirection(DcMotorSimple.Direction.REVERSE);
-    shooterMot.setDirection(DcMotorSimple.Direction.FORWARD);
-    motClimber.setDirection(DcMotorSimple.Direction.FORWARD);
 
     for(DcMotorEx motor : motors ){
         motor.setPower(0.0);
@@ -61,17 +56,32 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 
 public void initializeIntakeMotors(HardwareMap hardwareMap){
     shooterLeft = hardwareMap.get(DcMotorEx.class, RobotIDS.LEFT_SHOOTER_MOTOR);
+   shooterLeft.setPower(0.0);
+   shooterLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   shooterLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     shooterRight = hardwareMap.get(DcMotorEx.class, RobotIDS.RIGHT_SHOOTER_MOTOR);
+    shooterRight.setPower(0.0);
+    shooterRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    shooterRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     shooterMot = hardwareMap.get(DcMotorEx.class, RobotIDS.SHOOTER_HEX_MOTOR);
+    shooterMot.setPower(0.0);
+    shooterMot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    shooterMot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 }
 
 public void initializeClimbMotors(HardwareMap hardwareMap){
     motClimber = hardwareMap.get(DcMotorEx.class, RobotIDS.CLIMBER_HEX_MOTOR);
+    motClimber.setPower(0.0);
+    motClimber.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    motClimber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 }
 
 public void initializeServos(HardwareMap hardwareMap){
     //this is where all of your servos will go eventually
     shooterSer = hardwareMap.get(Servo.class, RobotIDS.BACK_SHOOTER_SERVO);
+    shooterSer.setPosition(0.0);
 }
 }

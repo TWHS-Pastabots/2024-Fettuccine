@@ -12,4 +12,8 @@ public class RobotIDS {
     public static final String SHOOTER_HEX_MOTOR = "shooterMot";
     public static final String CLIMBER_HEX_MOTOR = "climberMot";
     public static final String BACK_SHOOTER_SERVO = "shooterSer";
+
+    public static final String CHAMBER_MOTOR = "chamberm";
+    public static final String PIVOT_MOTOR = "pivotm";
+    public static final String CLIMB_MOTOR = "climbm";
 }
