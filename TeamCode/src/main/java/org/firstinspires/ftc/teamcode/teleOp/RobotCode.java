@@ -19,7 +19,6 @@ public class RobotCode extends OpMode {
     public static final double SLOW_MODE = .45;
     double currentMode;
     ElapsedTime buttonTime = null;
-    ElapsedTime buttonTimeL= null;
 
     public void init(){
         hardware = new RobotHardware();
@@ -39,7 +38,7 @@ public class RobotCode extends OpMode {
         drive();
         intake();
         launch();
-        //lift();
+        lift();
         telemetry();
     }
     public void telemetry()
@@ -116,13 +115,37 @@ public class RobotCode extends OpMode {
     } else {
         hardware.shooterLeft.setPower(0.0);
     }
-}
-    public void launch() {
-        if (gamepad2.right_trigger > 0) {
-            hardware.shooterRight.setPower(1.0);
+        if (gamepad2.left_trigger > 0) {
+            hardware.shooterRight.setPower(-1.0);
             telemetry.addData("intake wheels on: ", "turning");
         } else {
-            hardware.shooterLeft.setPower(0.0);
+            hardware.shooterRight.setPower(0.0);
+}
+        }
+    public void launch() {
+            if (gamepad2.right_trigger > 0) {
+                hardware.shooterLeft.setPower(-1.0);
+                telemetry.addData("intake wheels on: ", "turning");
+            } else {
+                hardware.shooterLeft.setPower(0.0);
+            }
+            if (gamepad2.left_trigger > 0) {
+                hardware.shooterRight.setPower(1.0);
+                telemetry.addData("intake wheels on: ", "turning");
+            } else {
+                hardware.shooterRight.setPower(0.0);
+            }
+            if (gamepad2.triangle) {
+                hardware.shooterSer.setPosition(1.0);
+            }
+        }
+    public void lift() {
+        if (gamepad2.circle) {
+            hardware.motClimber.setPower(-1.0);
+        }
+        if (gamepad2.square) {
+            hardware.shooterMot.setPower(1.0);
+            telemetry.addData("Shooter climb on:", "turning");
         }
     }
 }
