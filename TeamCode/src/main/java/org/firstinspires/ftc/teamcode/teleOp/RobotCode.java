@@ -137,13 +137,18 @@ public class RobotCode extends OpMode {
         } else {
             hardware.shooterRight.setPower(0.0);
         }
-        if (gamepad2.square) {
+        if (gamepad2.dpad_up) {
             hardware.shooterMot .setPower(1.0);
             telemetry.addData("right shooter climb on: ", "turning");
-                            hardware.shooterRight.setPower(0.0);
+            hardware.shooterRight.setPower(0.0);
+        }
+        if (gamepad2.dpad_down) {
+            hardware.shooterMot .setPower(-1.0);
+            telemetry.addData("right shooter climb on: ", "turning");
+            hardware.shooterRight.setPower(0.0);
         }
         if (gamepad2.triangle) {
-            hardware.shooterSer.setPosition(-1.0);
+            hardware.shooterSer.setPosition(1.0);
         }
     }
 
