@@ -73,6 +73,7 @@ public void initializeIntakeMotors(HardwareMap hardwareMap){
     shooterMot.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
     shooterMot.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
+
 }
 
 public void initializeClimbMotors(HardwareMap hardwareMap){
@@ -80,6 +81,7 @@ public void initializeClimbMotors(HardwareMap hardwareMap){
     motClimber.setPower(0.0);
     motClimber.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
     motClimber.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
 }
 
 public void initializeServos(HardwareMap hardwareMap){

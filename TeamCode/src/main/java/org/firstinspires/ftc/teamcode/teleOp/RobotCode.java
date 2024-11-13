@@ -138,12 +138,12 @@ public class RobotCode extends OpMode {
             hardware.shooterRight.setPower(0.0);
         }
         if (gamepad2.dpad_up) {
-            hardware.shooterMot .setPower(1.0);
+            hardware.shooterMot.setPower(1.0);
             telemetry.addData("right shooter climb on: ", "turning");
             hardware.shooterRight.setPower(0.0);
         }
         if (gamepad2.dpad_down) {
-            hardware.shooterMot .setPower(-1.0);
+            hardware.shooterMot.setPower(-1.0);
             telemetry.addData("right shooter climb on: ", "turning");
             hardware.shooterRight.setPower(0.0);
         }
@@ -156,5 +156,11 @@ public class RobotCode extends OpMode {
         if (gamepad2.circle) {
             hardware.motClimber.setPower(-1.0);
         }
+        if (gamepad2.square) {
+            hardware.shooterMot.setPower(1.0);
+            telemetry.addData("Shooter climb on:", "turning");
+        }
     }
+
+
 }
