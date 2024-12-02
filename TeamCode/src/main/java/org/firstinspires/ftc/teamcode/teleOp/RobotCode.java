@@ -153,8 +153,17 @@ public class RobotCode extends OpMode {
     }
 
     public void lift() {
-        if (gamepad2.circle) {
+        if (gamepad2.left_bumper) {
             hardware.motClimber.setPower(-1.0);
+            telemetry.addData("right shooter Wheels on: ", "turning");
+        } else {
+            hardware.motClimber.setPower(0.0);
+        }
+        if (gamepad2.right_bumper) {
+            hardware.motClimber.setPower(1.0);
+            telemetry.addData("left shooter Wheels on: ", "turning");
+        } else {
+            hardware.motClimber.setPower(0.0);
         }
         if (gamepad2.square) {
             hardware.shooterMot.setPower(1.0);
