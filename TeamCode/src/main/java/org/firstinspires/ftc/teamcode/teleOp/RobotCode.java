@@ -109,86 +109,76 @@ public class RobotCode extends OpMode {
     }
 
     public void intake() {
+
+
         if (gamepad2.right_trigger > 0) {
+            hardware.shooterLeft.setPower(-0.7);
+            hardware.shooterRight.setPower(0.7);
+            telemetry.addData("Intake Wheels on: ", "turning");
+        } else {
+
+            hardware.shooterLeft.setPower(0.0);
+            hardware.shooterRight.setPower(0);
+        }
+
+
+        }
+    public void launch () {
+        if (gamepad2.left_trigger > 0) {
             hardware.shooterLeft.setPower(1.0);
-            telemetry.addData("Intake Wheels on: ", "turning");
         } else {
             hardware.shooterLeft.setPower(0.0);
         }
-        if (gamepad2.right_trigger > 0) {
+        if (gamepad2.left_trigger > 0) {
             hardware.shooterRight.setPower(-1.0);
-            telemetry.addData("Intake Wheels on: ", "turning");
-        } else {
-            hardware.shooterRight.setPower(0.0);
-        }
-    }
-
-
-    public void launch() {
-        if (gamepad2.left_trigger > 0) {
-            hardware.shooterLeft.setPower(-1.0);
-            telemetry.addData("right shooter Wheels on: ", "turning");
-        } else {
-            hardware.shooterLeft.setPower(0.0);
-        }
-        if (gamepad2.left_trigger > 0) {
-            hardware.shooterRight.setPower(1.0);
-            telemetry.addData("right shooter Wheels on: ", "turning");
         } else {
             hardware.shooterRight.setPower(0.0);
         }
         if (gamepad2.dpad_up) {
-            hardware.shooterMot.setPower(1.0);
-            telemetry.addData("right shooter climb on: ", "turning");
-            hardware.shooterRight.setPower(0.0);
-        }
-        if (gamepad2.dpad_down) {
-            hardware.shooterMot.setPower(-1.0);
-            telemetry.addData("right shooter climb on: ", "turning");
-            hardware.shooterRight.setPower(0.0);
+            hardware.shooterMot.setPower(.3);
+
+        } else if (gamepad2.dpad_down) {
+            hardware.shooterMot.setPower(-.15);
+
+        } else {
+            hardware.shooterMot.setPower(0.05);
         }
         if (gamepad2.triangle) {
             hardware.shooterSer.setPosition(1.0);
+        } else if (gamepad2.cross) {
+            hardware.shooterSer.setPosition(0);
         }
     }
 
     //public void lift() {
-        //if (gamepad2.left_bumper) {
-            //hardware.motClimber.setPower(-1.0);
-            //telemetry.addData("right shooter Wheels on: ", "turning");
-      //  } else {
-     //       hardware.motClimber.setPower(0.0);
-     //   }
-      //  if (gamepad2.right_bumper) {
-     //       hardware.motClimber.setPower(1.0);
-      //      telemetry.addData("left shooter Wheels on: ", "turning");
-      //  } else {
-       //     hardware.motClimber.setPower(0.0);
-     //   }
-     //   if (gamepad2.square) {
-     //       hardware.shooterMot.setPower(1.0);
-      //      telemetry.addData("Shooter climb on:", "turning");
-      //  }
+    //if (gamepad2.left_bumper) {
+    //hardware.motClimber.setPower(-1.0);
+    //telemetry.addData("right shooter Wheels on: ", "turning");
+    //  } else {
+    //       hardware.motClimber.setPower(0.0);
+    //   }
+    //  if (gamepad2.right_bumper) {
+    //       hardware.motClimber.setPower(1.0);
+    //      telemetry.addData("left shooter Wheels on: ", "turning");
+    //  } else {
+    //     hardware.motClimber.setPower(0.0);
+    //   }
+    //   if (gamepad2.square) {
+    //       hardware.shooterMot.setPower(1.0);
+    //      telemetry.addData("Shooter climb on:", "turning");
+    //  }
 
-    public void pClimb(boolean climbUp, boolean climbDown)
+    public void lift ()
     {
-        if(climbUp)
-        {
+        //climber code will go here
+        if (gamepad2.left_bumper) {
             hardware.motClimber.setPower(1.0);
-        }
-        else if (climbDown)
-        {
-            hardware.motClimber.setPower(-0.5);
-        }
-        else
-        {
+        } else if (gamepad2.right_bumper) {
+            hardware.motClimber.setPower(-0.25);
+        } else {
             hardware.motClimber.setPower(0.0);
         }
     }
-    public void lift(){
-        //climber code will go here
-        pClimb(gamepad2.left_bumper, gamepad2.right_bumper);
-    }
-    }
 
 
+}
